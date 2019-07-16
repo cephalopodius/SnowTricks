@@ -1,20 +1,19 @@
-<!DOCTYPE HTML>
-<!--
-	Twenty by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-<head>
-    <title>Snowtricks</title>
+
+{% extends 'base.html.twig' %}
+
+
+{%  block title %}
+
+    Snowtricks
+
+{%  endblock %}
 
     {% block stylsheets %}
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-        <noscript> <link rel="stylesheet" href="{{ asset('css/noscript.css') }}"></noscript>
+
+
     {% endblock %}
-</head>
+
+{% block body %}
 <body class="index is-preload">
 <div id="page-wrapper">
 
@@ -43,7 +42,7 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="#" class="button primary">Sign Up</a></li>
+                <li><a href="login" class="button primary">Sign Up</a></li>
             </ul>
         </nav>
     </header>
@@ -161,9 +160,9 @@
         </ul>
 
     </footer>
-{%  endblock %}
+    {%  endblock %}
 </div>
-
+{%  block script %}
 <!-- Scripts -->
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/jquery.dropotron.min.js"></script>
@@ -173,6 +172,6 @@
 <script src="assets/js/breakpoints.min.js"></script>
 <script src="assets/js/util.js"></script>
 <script src="assets/js/main.js"></script>
-
+{%  endblock %}
 </body>
-</html>
+{%  endblock %}
