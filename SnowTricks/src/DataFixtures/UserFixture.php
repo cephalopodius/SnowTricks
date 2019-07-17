@@ -14,7 +14,7 @@ class UserFixture extends Fixture
         $user->setEmail(sprintf('admin@admin.fr'));
         $user->setFirstName(sprintf('john'));
         $user->setPassword(sprintf('admin'));
-        $user->setRoles(sprintf('admin'));
+
 
         $manager->persist($user);
         $manager->flush();
