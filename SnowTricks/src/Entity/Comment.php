@@ -17,11 +17,6 @@ class Comment
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $authorName;
-
-    /**
      * @ORM\Column(type="text")
      */
     private $content;
@@ -32,22 +27,22 @@ class Comment
      */
     private $article;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $commentDate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $authorId;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getAuthorName(): ?string
-    {
-        return $this->authorName;
-    }
-
-    public function setAuthorName(string $authorName): self
-    {
-        $this->authorName = $authorName;
-
-        return $this;
-    }
 
     public function getContent(): ?string
     {
@@ -69,6 +64,30 @@ class Comment
     public function setArticle(?Article $article): self
     {
         $this->article = $article;
+
+        return $this;
+    }
+
+    public function getCommentDate(): ?\DateTimeInterface
+    {
+        return $this->commentDate;
+    }
+
+    public function setCommentDate(\DateTimeInterface $commentDate): self
+    {
+        $this->commentDate = $commentDate;
+
+        return $this;
+    }
+
+    public function getAuthorId(): ?User
+    {
+        return $this->authorId;
+    }
+
+    public function setAuthorId(?User $authorId): self
+    {
+        $this->authorId = $authorId;
 
         return $this;
     }
