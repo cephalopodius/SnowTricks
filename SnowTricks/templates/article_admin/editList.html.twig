@@ -1,0 +1,40 @@
+{% extends 'content_base.html.twig' %}
+
+{% block title %}Gestion des articles{% endblock %}
+
+{% block content_body %}
+    <div class="row">
+    <d class="col-sm-12">
+    <h1>Gestion des articles</h1>
+
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Article</th>
+        <th>Auteur</th>
+        <th>Contenu</th>
+        <th>Date de création</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for article in article %}
+        <tr>
+            <td>
+                <a href="edit/{{ article.id }}">
+                    {{ article.title }}
+                </a>
+            </td>
+            <td>
+                 comment.authorName
+            </td>
+            <td style="width: 20%;">
+                {{ article.content }}
+            </td>
+            <td>
+                 article.publishedAt
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}

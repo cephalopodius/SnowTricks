@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -51,6 +52,7 @@ class Article
 
     public function __construct()
     {
+        $this->publishedAt=new \DateTime('now');
         $this->comments = new ArrayCollection();
     }
 

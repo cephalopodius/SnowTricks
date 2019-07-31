@@ -1,15 +1,24 @@
-{% block title %}Read: {{ article.title }}{% endblock %}
+
+{% extends 'content_base.html.twig' %}
+
+   {% block title %}{{ article.title }}{% endblock %}
+    {% block stylsheets %}
+    {% endblock %}
 
 {%  block content_body %}
+
+    <body class="index is-preload">
+    <div id="page-wrapper">
+
 <div class="row">
     <div class="col-sm-12">
         <img class="show-article-img" src="{{ asset(article.picture) }}">
         <div class="show-article-title-container d-inline-block pl-3 align-middle">
             <span class="show-article-title ">{{ article.title }}</span>
             <br>
-            <span class="align-left article-details"><img class="article-author-img rounded-circle" src="imageprofilecomm">  user.firstname  </span>
-            <span class="pl-2 article-details"> date publication</span>
-            <span class="pl-2 article-details">
+            <span class="align-left article-details"><img class="article-author-img rounded-circle" src="imageprofilecomm">   user.firstname   </span>
+            <span class="pl-2 article-details">  article.publishedAt </span>
+
 
         </div>
     </div>
@@ -45,4 +54,6 @@
 
     </div>
 </div>
+    </div>
+    </body>
 {% endblock %}

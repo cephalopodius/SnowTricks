@@ -14,6 +14,7 @@ class ArticleFormType extends AbstractType
         $builder
                 ->add('title')
                 ->add('content')
+                ->add('picture')
             ;
     }
 }
