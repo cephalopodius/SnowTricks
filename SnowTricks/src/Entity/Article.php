@@ -50,6 +50,12 @@ class Article
      */
     private $author;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Groupe", inversedBy="Article")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $groupe;
+
     public function __construct()
     {
         $this->publishedAt=new \DateTime('now');
@@ -148,6 +154,18 @@ class Article
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getGroupe(): ?Groupe
+    {
+        return $this->groupe;
+    }
+
+    public function setGroupe(?Groupe $groupe): self
+    {
+        $this->groupe = $groupe;
 
         return $this;
     }

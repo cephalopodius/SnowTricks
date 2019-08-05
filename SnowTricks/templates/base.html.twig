@@ -12,7 +12,7 @@
         {% endblock %}
 
     <!-- Header peeek machin fait pas grand chose == class="{ app.session.flashbag.peek('success')|length > 0 ? '' : 'mb-5' }} -->
-
+{%  block Navbar %}
         <h1 id="logo"><a href="{{ path('app_homepage') }}">Snowtricks</a></h1>
         <nav id="nav" >
             <ul>
@@ -36,7 +36,7 @@
                 {% endif %}
             </ul>
         </nav>
-
+{% endblock %}
     </header>
     <body>
     {% block body %}

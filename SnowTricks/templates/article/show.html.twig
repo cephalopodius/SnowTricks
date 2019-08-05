@@ -17,9 +17,7 @@
             <span class="show-article-title ">{{ article.title }}</span>
             <br>
             <span class="align-left article-details"><img class="article-author-img rounded-circle" src="imageprofilecomm">   user.firstname   </span>
-            <span class="pl-2 article-details">  article.publishedAt </span>
-
-
+            <span class="pl-2 article-details">  {{ article.publishedAt|date('Y-m-d')}} </span>
         </div>
     </div>
 </div>
@@ -35,7 +33,7 @@
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <h3><i class="pr-3 fa fa-comment"></i> Comments</h3>
+        <h3><i class="pr-3 fa fa-comment"></i> Commentaires</h3>
 
         <hr>
 

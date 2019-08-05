@@ -12,6 +12,7 @@
     <tr>
         <th>Article</th>
         <th>Auteur</th>
+        <th>Categorie</th>
         <th>Contenu</th>
         <th>Date de création</th>
     </tr>
@@ -25,13 +26,17 @@
                 </a>
             </td>
             <td>
-                 comment.authorName
+                {{ article.author.firstName }}
+
+            </td>
+            <td style="width: 20%;">
+                {{ article.groupe.groupname }}
             </td>
             <td style="width: 20%;">
                 {{ article.content }}
             </td>
             <td>
-                 article.publishedAt
+                 {{ article.publishedAt|date('Y-m-d') }}
             </td>
         </tr>
     {% endfor %}

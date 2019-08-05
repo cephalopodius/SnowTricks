@@ -17,7 +17,8 @@ class ArticleFixture extends Fixture implements DependentFixtureInterface
         $article->setContent(sprintf('Beautiful grab'));
         $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
         $article->setPicture(sprintf('grab.jpg'));
-        $article->setAuthor($this->getReference('toto'));
+        $article->setAuthor($this->getReference('admin'));
+        $article->setGroupe($this->getReference('Grabs'));
 
         $manager->persist($article);
         $manager->flush();

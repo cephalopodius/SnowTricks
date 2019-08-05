@@ -2,9 +2,16 @@
 
 namespace App\Controller;
 
+use App\Form\UserRegistrationFormType;
+use App\Security\LoginFormAuthentificator;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+
 
 class SecurityController extends AbstractController
 {
@@ -29,5 +36,35 @@ class SecurityController extends AbstractController
     public function logout()
     {
         throw new \Exception('Will be intercepted before getting here');
+    }
+    /**
+     * @Route("/register", name="app_register")
+     */
+    public function register(Request $request,EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler,LoginFormAuthentificator $formAuthenticator)
+    {
+        $form = $this->createForm(UserRegistrationFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $user = $form->getData();
+            $user->setPassword($passwordEncoder->encodePassword(
+                $user,
+                $user->getPassword()
+            ));
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return $guardHandler->authenticateUserAndHandleSuccess(
+                $user,
+                $request,
+                $formAuthenticator,
+                'main'
+            );
+        }
+        return $this->render('security/register.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
     }
 }

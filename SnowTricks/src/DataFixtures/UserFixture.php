@@ -19,15 +19,17 @@ class UserFixture extends Fixture
     {
         $user = new User();
         $user->setEmail(sprintf('admin@admin.fr'));
-        $user->setFirstName(sprintf('john'));
+        $user->setFirstName(sprintf('wayne'));
         $user->setRoles(['ROLE_ADMIN']);
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
             'admin'
         ));
+        $user->setNickname(sprintf('john'));
+        $user->setPicture(sprintf('boss'));
 
         $manager->persist($user);
         $manager->flush();
-        $this->addReference('toto',$user);
+        $this->addReference('admin',$user);
     }
 }

@@ -4,7 +4,7 @@
 namespace App\Controller;
 
 use App\Form\ArticleFormType;
-use App\Entity\User;
+use App\Entity\Groupe;
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
@@ -53,6 +53,7 @@ class ArticleController extends AbstractController
         $form = $this->createForm(ArticleFormType::class);
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $data=($form->getData());
             $article = new Article();
@@ -60,6 +61,7 @@ class ArticleController extends AbstractController
             $article->setContent($data['content']);
             $article->setPicture($data['picture']);
             $article->setAuthor($this->getUser());
+            $article->setGroupe(($data['groupe']));
 
             $em->persist($article);
             $em->flush();
