@@ -26,11 +26,11 @@ class Groupe
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="groupe", orphanRemoval=true)
      */
-    private $Article;
+    private $Articles;
 
     public function __construct()
     {
-        $this->Article = new ArrayCollection();
+        $this->Articles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -55,13 +55,13 @@ class Groupe
      */
     public function getArticle(): Collection
     {
-        return $this->Article;
+        return $this->Articles;
     }
 
     public function addArticle(Article $article): self
     {
-        if (!$this->Article->contains($article)) {
-            $this->Article[] = $article;
+        if (!$this->Articles->contains($article)) {
+            $this->Articles[] = $article;
             $article->setGroupe($this);
         }
 
@@ -70,8 +70,8 @@ class Groupe
 
     public function removeArticle(Article $article): self
     {
-        if ($this->Article->contains($article)) {
-            $this->Article->removeElement($article);
+        if ($this->Articles->contains($article)) {
+            $this->Articles->removeElement($article);
             // set the owning side to null (unless already changed)
             if ($article->getGroupe() === $this) {
                 $article->setGroupe(null);

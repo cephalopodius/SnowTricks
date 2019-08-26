@@ -4,12 +4,15 @@
 namespace App\Form;
 
 
+use App\Entity\Gallery;
 use App\Entity\Groupe;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class ArticleFormType extends AbstractType
 {
@@ -19,6 +22,26 @@ class ArticleFormType extends AbstractType
                 ->add('title')
                 ->add('content')
                 ->add('picture')
+
+
+                 ->add('uploads', FileType::class, ([
+                    'label' => 'Uploads (JPG file)',
+
+
+
+
+                    // unmapped means that this field is not associated to any entity property
+                    'mapped' => false,
+
+                    // make it optional so you don't have to re-upload the  file
+                    // everytime you edit the Product details
+                    'required' => false,
+
+                    // unmapped fields can't define their validation using annotations
+                    // in the associated entity, so you can use the PHP constraint classes
+                     'multiple' => true
+                 ]))
+
                  ->add('groupe',EntityType::class, [
                      'class'=> Groupe::class,
                         'choice_label' =>'Groupname',],

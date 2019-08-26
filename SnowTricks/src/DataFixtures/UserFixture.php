@@ -26,7 +26,7 @@ class UserFixture extends Fixture
             'admin'
         ));
         $user->setNickname(sprintf('john'));
-        $user->setPicture(sprintf('boss'));
+        $user->setPicture(sprintf('snowtrickUser.jpg'));
 
         $manager->persist($user);
         $manager->flush();

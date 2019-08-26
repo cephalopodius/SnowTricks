@@ -30,21 +30,17 @@ class GroupeFixture extends Fixture
                 $groupe->setGroupname(sprintf('Les Slides'));
                 $this->addReference('Slides',$groupe);
             }if($i == 5){
-        $groupe->setGroupname(sprintf('Les One Foot Tricks'));
-        $this->addReference('Foot',$groupe);
-         }
+                 $groupe->setGroupname(sprintf('Les One Foot Tricks'));
+                 $this->addReference('Foot',$groupe);
+            }if($i == 6){
+                $groupe->setGroupname(sprintf('Les oldSchool tricks'));
+                $this->addReference('OldSchool',$groupe);
+            }
             $manager->persist($groupe);
             $manager->flush();
 
             $i++;
         }
-
-
-
-
-
-
-
 
     }
 }

@@ -1,0 +1,38 @@
+{% extends 'content_base.html.twig' %}
+
+{% block title %}Gestion de galleries{% endblock %}
+
+{% block content_body %}
+    <div class="row">
+    <d class="col-sm-12">
+    <h1>Gestion de la gallerie de l'article {{ article.id }}</h1>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nom du fichier</th>
+            <th>Supprimer</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for element in gallery %}
+            {%  if element.article.id == article.id %}
+            <tr>
+                <td>
+                    {{ element.name }}
+                </td>
+                <td>
+                    <a href="gallery/delete/{{ element.article.id }}">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+            {%  endif %}
+        {% endfor %}
+
+        </tbody>
+        <a href="gallery/addGallery/{{ article.id }}">
+            <i class="fa fa-upload" aria-hidden="true"></i>
+        </a>
+    </table>
+{% endblock %}

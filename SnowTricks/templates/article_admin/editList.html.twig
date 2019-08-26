@@ -15,6 +15,10 @@
         <th>Categorie</th>
         <th>Contenu</th>
         <th>Date de création</th>
+        <th>Vidéo</th>
+        <th>Gallerie</th>
+        <th>Supprimer</th>
+
     </tr>
     </thead>
     <tbody>
@@ -37,6 +41,23 @@
             </td>
             <td>
                  {{ article.publishedAt|date('Y-m-d') }}
+            </td>
+            <td>
+                <a href="/admin/article/videoList/{{ article.id }}">
+                    <i class="fa fa-camera" aria-hidden="true"></i>
+                </a>
+            </td>
+
+            <td>
+                <a href="/admin/article/galleryList/{{ article.id }}">
+                    <i class="fa fa-th" aria-hidden="true"></i>
+
+                </a>
+            </td>
+            <td>
+                <a rel="icon" href="delete/{{ article.id }}">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
             </td>
         </tr>
     {% endfor %}

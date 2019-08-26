@@ -51,15 +51,27 @@ class Article
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Groupe", inversedBy="Article")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Groupe", inversedBy="Articles")
      * @ORM\JoinColumn(nullable=false)
      */
     private $groupe;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="ArticleVideo")
+     */
+    private $videos;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Gallery", mappedBy="article")
+     */
+    private $galleries;
 
     public function __construct()
     {
         $this->publishedAt=new \DateTime('now');
         $this->comments = new ArrayCollection();
+        $this->videos = new ArrayCollection();
+        $this->galleries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -166,6 +178,68 @@ class Article
     public function setGroupe(?Groupe $groupe): self
     {
         $this->groupe = $groupe;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Video[]
+     */
+    public function getVideos(): Collection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Video $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Video $video): self
+    {
+        if ($this->videos->contains($video)) {
+            $this->videos->removeElement($video);
+            // set the owning side to null (unless already changed)
+            if ($video->getArticle() === $this) {
+                $video->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Gallery[]
+     */
+    public function getGalleries(): Collection
+    {
+        return $this->galleries;
+    }
+
+    public function addGallery(Gallery $gallery): self
+    {
+        if (!$this->galleries->contains($gallery)) {
+            $this->galleries[] = $gallery;
+            $gallery->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGallery(Gallery $gallery): self
+    {
+        if ($this->galleries->contains($gallery)) {
+            $this->galleries->removeElement($gallery);
+            // set the owning side to null (unless already changed)
+            if ($gallery->getArticle() === $this) {
+                $gallery->setArticle(null);
+            }
+        }
 
         return $this;
     }
