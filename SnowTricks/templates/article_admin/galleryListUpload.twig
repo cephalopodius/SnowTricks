@@ -11,6 +11,7 @@
         <thead>
         <tr>
             <th>Nom du fichier</th>
+            <th>Image principale</th>
             <th>Supprimer</th>
         </tr>
         </thead>
@@ -22,7 +23,20 @@
                     {{ element.name }}
                 </td>
                 <td>
-                    <a href="gallery/delete/{{ element.article.id }}">
+                   {% if element.mainPicture == 1 %}
+
+                        image principale
+
+                       {% else %}
+
+                           <form action="/admin/article/gallery/mainPicture/{{ element.id }}/{{ article.id }}">
+                               <input type="submit" value="Choisir">
+                           </form>
+
+                       {% endif %}
+                </td>
+                <td>
+                    <a href="/admin/article/gallery/delete/{{ element.id }}">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </a>
                 </td>

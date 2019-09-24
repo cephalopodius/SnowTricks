@@ -21,14 +21,10 @@ class ArticleFormType extends AbstractType
         $builder
                 ->add('title')
                 ->add('content')
-                ->add('picture')
 
 
                  ->add('uploads', FileType::class, ([
                     'label' => 'Uploads (JPG file)',
-
-
-
 
                     // unmapped means that this field is not associated to any entity property
                     'mapped' => false,

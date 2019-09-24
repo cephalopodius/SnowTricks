@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use http\Exception\InvalidArgumentException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @method Article|null find($id, $lockMode = null, $lockVersion = null)
@@ -27,6 +29,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
 
         // /**
     //  * @return Article[] Returns an array of Article objects

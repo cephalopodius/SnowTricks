@@ -11,16 +11,16 @@
                         <li><a href="{{ path('admin_article_new') }}">Ajouter</a></li>
                         <li><a href="{{ path('admin_article_editList') }}">Editer</a></li>
 
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </li>
-            {% endif %}
+        <li><a href="contact.html">Contact</a></li>
+        </ul>
+        </li>
+        {% endif %}
 
-            {% if is_granted('ROLE_ADMIN') %}
-                <li><a href="{{ path('app_logout') }}" class="button primary">Déconnection</a></li>
-            {% else %}
-                <li><a href="{{ path('app_login') }}" class="button primary">Se connecter</a></li>
-            {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <li><a href="{{ path('app_logout') }}" class="button primary">Déconnection</a></li>
+        {% else %}
+            <li><a href="{{ path('app_login') }}" class="button primary">Se connecter</a></li>
+        {% endif %}
         </ul>
     </nav>
 {% endblock %}

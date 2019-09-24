@@ -43,19 +43,21 @@
                  {{ article.publishedAt|date('Y-m-d') }}
             </td>
             <td>
-                <a href="/admin/article/videoList/{{ article.id }}">
+                <a href="{{path( "admin_article_editList", { id: article.id})}}">
                     <i class="fa fa-camera" aria-hidden="true"></i>
                 </a>
             </td>
 
             <td>
-                <a href="/admin/article/galleryList/{{ article.id }}">
+                <a href="{{path( "article_admin_uploadList", { articleMatch: article.id})}}">
+
                     <i class="fa fa-th" aria-hidden="true"></i>
 
                 </a>
             </td>
             <td>
-                <a rel="icon" href="delete/{{ article.id }}">
+                <a rel="icon" href="{{path( "article_admin_delete_gallery", { id: article.id})}}">
+
                     <i class="fa fa-trash" aria-hidden="true"></i>
                 </a>
             </td>

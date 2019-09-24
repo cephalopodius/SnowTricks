@@ -64,20 +64,28 @@
             </header>
 
             <div class="row">
-            {% for article in articles %}
 
-                <div class="col-6 col-12-narrower">
+                        {% for element in articles%}
 
-                    <section>
-                        <a href="article/{{ article.id }}" class="image featured"><img src="images/{{ article.picture }}" alt="" /></a>
-                        <header>
-                            <h3>{{ article.title }}</h3>
-                        </header>
-                             <p>{{ article.content }}</p>
-                    </section>
+                            <div class="col-6 col-12-narrower">
+                                <section>
+                                    <a href="{{path( "article_show", { slug: element.id })}}" class="image featured">
+                                        {% for picture in gallery  %}
+                                            {%  if  (picture.article.id == element.id and picture.mainPicture == 1) %}
+                                            <img src="images/upload/{{ picture.name }}" alt="" />
+                                            {% endif %}
+                                        {% endfor %}
+                                    </a>
+                                    <header>
+                                        <h3>{{ element.title }}</h3>
+                                    </header>
+                                         <p>{{ element.content }}</p>
+                                </section>
 
-                </div>
-                {%  endfor %}
+                            </div>
+      
+
+                {% endfor %}
 
             </div>
 

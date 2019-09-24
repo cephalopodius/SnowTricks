@@ -23,7 +23,7 @@ class Video
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="videos")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, referencedColumnName="id" ,onDelete="CASCADE")
      */
     private $ArticleVideo;
 

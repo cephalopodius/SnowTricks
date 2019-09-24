@@ -6,6 +6,7 @@ use App\Entity\User;
 use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -28,9 +29,18 @@ class UserRegistrationFormType extends AbstractType
             ->add('nickname',\Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
                 'attr' => array('placeholder' => 'Entrez votre Prénom')
             ))
-            ->add('picture',\Symfony\Component\Form\Extension\Core\Type\TextType::class, array(
-                'attr' => array('placeholder' => 'Entrez votre image')
-            ))
+            ->add('uploadPictureProfile', FileType::class, ([
+                'label' => 'Uploads (JPG file)',
+
+                // unmapped means that this field is not associated to any entity property
+                'mapped' => false,
+
+                // make it optional so you don't have to re-upload the  file
+                // everytime you edit the Product details
+                'required' => false,
+
+            ]))
+
         ;
     }
 

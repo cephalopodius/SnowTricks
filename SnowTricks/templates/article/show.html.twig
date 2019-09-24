@@ -1,66 +1,172 @@
+{%  block ref %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+{%  endblock %}
 
-{% extends 'content_base.html.twig' %}
+{% block content %}
+<div class="container">
+    {%  block carousel %}
+    <!--Carousel Wrapper-->
+    <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--Indicators-->
+        <ol class="carousel-indicators">
 
-   {% block title %}{{ article.title }}{% endblock %}
-    {% block stylsheets %}
+            <li data-target="#carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel" data-slide-to="1"></li>
+            <li data-target="#carousel" data-slide-to="2"></li>
+        </ol>
+        <!--/.Indicators-->
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            {% for picture in gallery %}
+                {% if picture.article.id == article.id %}
+                    {%  if picture.mainPicture == 1 %}
+                        <div class="carousel-item active">
+                            <div class="view">
+                                <img class="d-block w-100" src="{{ asset('images/Upload/'~ picture.name ~'')}}" alt="First slide">
+                                <div class="mask rgba-black-light"></div>
+                            </div>
+
+                        </div>
+                    {% else %}
+                        <div class="carousel-item">
+
+                            <div class="view">
+                                <img class="d-block w-100" src="{{ asset('images/Upload/'~ picture.name ~'')}}" alt="Other slide">
+                                <div class="mask rgba-black-strong"></div>
+                            </div>
+
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            <!-- 2
+
+             -->
+            <!--3
+           <div class="carousel-item">
+
+                <div class="view">
+                    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg" alt="Third slide">
+                    <div class="mask rgba-black-slight"></div>
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="h3-responsive">Slight mask</h3>
+                    <p>Third text</p>
+                </div>
+            </div>
+            -->
+        </div>
+        <!--/.Slides-->
+        <!--Controls-->
+        <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Suivant</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Précédent</span>
+        </a>
+        <!--/.Controls-->
+    </div>
+    <!--/.Carousel Wrapper-->
+
+{% endblock %}
+    <h2><strong>{{ article.title }} </strong></h2>
+
+    <div class="row">
+    Par  {{ article.author.firstName }} publié le {{ article.publishedAt|date('Y-m-d') }}
+    </div>
+    <div class="row">
+        <div class="col-6 col-12-narrower">
+        <p>   {{ article.content }} </p>
+        </div>
+    {% endblock %}
+    </div>
+
+    {% block comment %}
+
+
+        <div class="comment-container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2 class="page-header">Commentaires</h2>
+                    <section class="comment-list">
+                        <!-- First Comment -->
+                        {% for comments in comment  %}
+                            {% if comments.article.id == article.id %}
+                        <article class="row">
+                            <div class="col-md-2 col-sm-2 hidden-xs">
+                                <figure class="thumbnail">
+                                    <img class="img-responsive" src="{{ asset('images/users/'~ comments.authorId.picture ~'')}}" />
+                                   <!-- <figcaption class="text-center"></figcaption>-->
+                                </figure>
+                            </div>
+                            <div class="col-md-10 col-sm-10">
+                                <div class="panel panel-default arrow left">
+                                    <div class="panel-body">
+                                        <header class="text-left">
+                                            <div class="comment-user"><i class="fa fa-user"></i> {{ comments.authorId.nickname }} {{ comments.authorId.firstName }}</div>
+                                            <time class="comment-date" ><i class="fa fa-clock-o"></i> {{ comments.commentDate|date('Y-m-d') }}</time>
+                                        </header>
+                                        <div class="comment-post">
+                                            <p>
+                                                {{ comments.content }}
+                                            </p>
+                                        </div>
+                                       <!-- <p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a></p> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                            {% endif %}
+                        {% endfor %}
+                        <!-- Second Comment Reply
+                        <article class="row">
+                            <div class="col-md-2 col-sm-2 col-md-offset-1 col-sm-offset-0 hidden-xs">
+                                <figure class="thumbnail">
+                                    <img class="img-responsive" src="http://www.tangoflooring.ca/wp-content/uploads/2015/07/user-avatar-placeholder.png" />
+                                    <figcaption class="text-center">username</figcaption>
+                                </figure>
+                            </div>
+                            <div class="col-md-9 col-sm-9">
+                                <div class="panel panel-default arrow left">
+                                    <div class="panel-heading right">Reply</div>
+                                    <div class="panel-body">
+                                        <header class="text-left">
+                                            <div class="comment-user"><i class="fa fa-user"></i> That Guy</div>
+                                            <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
+                                        </header>
+                                        <div class="comment-post">
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                            </p>
+                                        </div>
+                                        <p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        -->
+
+                    </section>
+                </div>
+            </div>
+            <!-- Add comment -->
+            {% if is_granted('ROLE_ADMIN') %}
+
+                <h1>Commenter </h1>
+                {{ form_start(commentForm) }}
+                {{ form_widget(commentForm) }}
+                <button type="submit" class="btn btn-primary">Commenter</button>
+                {{ form_end(commentForm) }}
+
+            {%  endif %}
+        </div>
+
     {% endblock %}
 
-{%  block content_body %}
-
-    <body class="index is-preload">
-    <div id="page-wrapper">
-
-<div class="row">
-    <    class="col-sm-12">
-        <span class="show-article-title ">{{ article.title }}</span>
-    <div class="row">
-        <img class="show-article-img" src="{{ asset('images/'~ article.picture ~'') }}">
-        <div class="show-article-title-container d-inline-block pl-3 align-middle">
-            <div class="row">
-            <span class="align-left article-details"><img class="article-author-img rounded-circle" src="{{ asset('images/users/'~ article.author.picture ~'') }}">{{ article.author.firstName }}</span>
-            <span class="pl-2 article-details">  {{ article.publishedAt|date('Y-m-d')}} </span>
-        </div>
-    </div>
 </div>
-<div class="row">
-    <div class="col-sm-12">
-        <div class="article-text">
-            {{ article.content }}
-        </div>
-    </div>
-</div>
-<div class="row">
-
-</div>
-<div class="row">
-    <div class="col-sm-12">
-        <h3><i class="pr-3 fa fa-comment"></i> Commentaires</h3>
-
-        <hr>
-
-        <div class="row mb-5">
-            <div class="col-sm-12">
-                {% for comment in comment %}
-                    {% if comment.article.id == article.id %}
-                        <img class="comment-img rounded-circle" src="{{ comment.authorid.picture }}">
-                        <div class="comment-container d-inline-block pl-3 align-top">
-
-                    <span class="comment"> {{ comment.content }} </span>
-                    {%  endif %}
-                {% endfor %}
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <div class="form-group">
-                        <textarea class="form-control comment-form" id="articleText" rows="1"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-info">Commenter</button>
-                    {% endif %}
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-</div>
-    </div>
-    </body>
-{% endblock %}

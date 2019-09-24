@@ -21,18 +21,26 @@ class GalleryRepository extends ServiceEntityRepository
         parent::__construct($registry, Gallery::class);
     }
 
-public function findGalleryByArticleId(int $articleId){
-
-     $this->createQueryBuilder('g')
-         ->innerJoin('App\Entity\Article','a','WITH' , 'a = g.article')
-        ->andWhere('g.article = :articleId')
-        ->setParameter(':articleId' , $articleId)
-        ->getQuery()
-        ->getResult()
-
+    public function changeMainPicture($id)
+    {
+        $qb = $this->createQueryBuilder('mainPicture');
+        $qb ->update(Gallery::class,'g')
+            ->andWhere('g.id = '.$id)
+            -> set('g.mainPicture', 1)
         ;
-    return $this;
-}
+        $qb->getQuery()->execute();
+    }
+    public function looseMainPicture($articleid)
+    {
+        $qb = $this->createQueryBuilder('mainPicture');
+        $qb ->update(Gallery::class,'g')
+            ->andWhere('g.mainPicture = 1 ')
+            ->andWhere('g.article = '.$articleid)
+            -> set('g.mainPicture', 0)
+        ;
+        $qb->getQuery()->execute();
+    }
+
 
 
     // /**

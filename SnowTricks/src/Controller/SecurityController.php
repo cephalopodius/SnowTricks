@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Form\UserRegistrationFormType;
 use App\Security\LoginFormAuthentificator;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,11 +48,34 @@ class SecurityController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $file = $form['uploadPictureProfile']->getData();
+
             $user = $form->getData();
             $user->setPassword($passwordEncoder->encodePassword(
                 $user,
                 $user->getPassword()
             ));
+
+            if ($file) {
+                    $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                    // this is needed to safely include the file name as part of the URL
+                    $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                    $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $file->move(
+                            $this->getParameter('upload_directory_profile'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        // ... handle exception if something happens during file upload
+                    }
+            }
+
+
+
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();

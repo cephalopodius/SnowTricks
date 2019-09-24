@@ -23,7 +23,7 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false , onDelete="CASCADE")
      */
     private $article;
 
@@ -37,6 +37,8 @@ class Comment
      * @ORM\JoinColumn(nullable=false)
      */
     private $authorId;
+
+
 
     public function getId(): ?int
     {
@@ -91,4 +93,5 @@ class Comment
 
         return $this;
     }
+
 }

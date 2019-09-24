@@ -24,9 +24,15 @@ class Gallery
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="galleries")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false,referencedColumnName="id", onDelete="CASCADE")
      */
     private $article;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $mainPicture;
+
 
     public function getId(): ?int
     {
@@ -62,5 +68,19 @@ class Gallery
 
         return $this;
     }
+
+    public function getMainPicture(): ?bool
+    {
+        return $this->mainPicture;
+    }
+
+    public function setMainPicture(bool $mainPicture): self
+    {
+        $this->mainPicture = $mainPicture;
+
+        return $this;
+    }
+
+
 
 }

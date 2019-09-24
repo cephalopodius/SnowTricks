@@ -23,12 +23,14 @@ class CommentFixture extends Fixture implements DependentFixtureInterface
                 $comment->setCommentDate(new \DateTime(sprintf('-%d days', rand(1, 100))));
                 $comment->setArticle($this->getReference('article1'));
                 $comment->setAuthorId($this->getReference('admin'));
+                $comment->setCommentDate(new \DateTime(sprintf('-%d days', rand(1, 100))));
             }
             if ($i == 1) {
                 $comment->setContent(sprintf('2em commentaire'));
                 $comment->setCommentDate(new \DateTime(sprintf('-%d days', rand(1, 100))));
                 $comment->setArticle($this->getReference('article1'));
                 $comment->setAuthorId($this->getReference('admin'));
+                $comment->setCommentDate(new \DateTime(sprintf('-%d days', rand(1, 100))));
             }
             $manager->persist($comment);
             $manager->flush();

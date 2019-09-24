@@ -25,7 +25,7 @@ class Article
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text", length=255)
      */
     private $content;
 
@@ -35,17 +35,12 @@ class Article
     private $publishedAt;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $picture;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="article")
      */
     private $comments;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User" )
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
@@ -57,14 +52,14 @@ class Article
     private $groupe;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="ArticleVideo")
+     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="ArticleVideo", cascade={"persist", "remove"})
      */
     private $videos;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Gallery", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="App\Entity\Gallery", mappedBy="article", cascade={"persist", "remove"} )
      */
-    private $galleries;
+    protected $galleries;
 
     public function __construct()
     {
@@ -115,17 +110,6 @@ class Article
         return $this;
     }
 
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(?string $picture): self
-    {
-        $this->picture = $picture;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Comment[]
