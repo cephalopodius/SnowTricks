@@ -2,13 +2,18 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  */
 class Comment
+{    public function __construct()
 {
+    $this->commentDate=new \DateTime('now');
+
+}
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

@@ -113,26 +113,7 @@ class ArticleBackController extends AbstractController
         $this->addFlash('deleteArticle', 'L\'article à bien été supprimé');
         return $this->redirectToRoute('admin_article_editList');
     }
-    /**
-     * @Route("/admin/article/comment/addComment/{id}/{article}", name="article_admin_addComment")
-     */
-    public function newComment( Request $request, EntityManagerInterface $em)
-    {
-        $comment = new Comment();
-        $form = $this->createForm(CommentFormType::class);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $comment->setAuthorId($this->getUser());
-
-            $em->persist($comment);
-
-        }
-        $this->addFlash('success', 'Commentaire ajouté!');
-        return $this->redirectToRoute('article_show');
-    }
+    
     /**
      * @Route("/admin/article/gallery/delete/{id}", name="article_admin_delete_gallery")
      */

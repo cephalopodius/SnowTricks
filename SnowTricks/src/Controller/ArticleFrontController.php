@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Entity\Comment;
 use App\Entity\Gallery;
+use App\Form\CommentFormType;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
 use App\Repository\GalleryRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,16 +30,29 @@ class ArticleFrontController extends AbstractController
     /**
      * @Route("/article/{slug}", name="article_show")
      */
-    public function show($slug ,Request $request,GalleryRepository $galleryRepository,ArticleRepository $articleRepository, CommentRepository $commentRepository)
+    public function show($slug , Request $request,GalleryRepository $galleryRepository,ArticleRepository $articleRepository, CommentRepository $commentRepository,EntityManagerInterface $em)
     {
         $comment = new Comment();
-        $form = $this->createForm(CommentFormType::class);
-
+        $form = $this->createForm(CommentFormType::class,$comment);
         $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $comment->setArticle($articleRepository->find($slug));
+            $comment->setAuthorId($this->getUser());
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+            $this->addFlash('AddComment', 'Le commentaire à bien été ajouté');
+            return $this->redirectToRoute('article_show', array('slug' => $slug));
+        }
+
+
         return $this->render('article/show.html.twig',[
             'article'=>$articleRepository->find($slug),
             'gallery'=>$galleryRepository->findAll(),
             'comment'=>$commentRepository->findAll(),
+            'commentForm'=> $form->createView(),
         ]);
 
     }
