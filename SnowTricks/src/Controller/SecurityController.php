@@ -18,6 +18,7 @@ class SecurityController extends AbstractController
 {
     /**
      * @Route("/login", name="app_login")
+     * @var User $user
      */
     public function login(AuthenticationUtils $authenticationUtils)
     {
@@ -40,6 +41,7 @@ class SecurityController extends AbstractController
     }
     /**
      * @Route("/register", name="app_register")
+     * @var User $user
      */
     public function register(Request $request,EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler,LoginFormAuthentificator $formAuthenticator)
     {

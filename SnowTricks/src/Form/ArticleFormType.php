@@ -46,12 +46,6 @@ class ArticleFormType extends AbstractType
                         'choice_label' =>'Groupname',],
                   ChoiceType::class, [
                      'choices' => [
-                        'Les Grabs'=> '9',
-                        'Les Rotations'=> '10',
-                        'Les Flips'=> '11',
-                        'Les Rotations désaxées'=> '12',
-                        'Les Slides'=> '13',
-                        'Les OneFoot Tricks'=> '14',
                 ],
             ]);
     }

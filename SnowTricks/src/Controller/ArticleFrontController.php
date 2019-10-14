@@ -20,6 +20,7 @@ class ArticleFrontController extends AbstractController
 {
     /**
      * @Route("/", name="app_homepage")
+     * @var Article $article
      */
     public function homepage(ArticleRepository $articleRepository,GalleryRepository $galleryRepository )
     {
@@ -31,6 +32,7 @@ class ArticleFrontController extends AbstractController
 
     /**
      * @Route("/article/{slug}", name="article_show")
+     * @var Article $article
      */
     public function show($slug , Request $request,GalleryRepository $galleryRepository,ArticleRepository $articleRepository, CommentRepository $commentRepository,EntityManagerInterface $em)
     {
@@ -60,6 +62,7 @@ class ArticleFrontController extends AbstractController
     /**
      * @Route("/admin/article/editList", name="admin_article_editList")
      * @Security("is_granted('ROLE_ADMIN')")
+     * @var Article $article
      */
     public function editList(ArticleRepository $articleRepository)
     {
@@ -70,6 +73,7 @@ class ArticleFrontController extends AbstractController
     /**
      * @Route("/admin/article/galleryList/{articleMatch}", name="article_admin_uploadList")
      * @Security("is_granted('ROLE_ADMIN')")
+     * @var Article $article
      */
     public function uploadList($articleMatch,GalleryRepository $galleryRepository,ArticleRepository $articleRepository)
     {

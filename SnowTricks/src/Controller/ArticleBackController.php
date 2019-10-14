@@ -30,6 +30,7 @@ class ArticleBackController extends AbstractController
     /**
      * @Route("/admin/article/new", name="admin_article_new")
      * @Security("is_granted('ROLE_ADMIN')")
+     * @var Article $article
      */
     public function new(EntityManagerInterface $em,Request $request,FileUploader $fileUploader)
     {
@@ -84,6 +85,7 @@ class ArticleBackController extends AbstractController
     /**
      * @Route("/admin/article/edit/{id}", name="admin_edit_article")
      * @Security("is_granted('ROLE_ADMIN')")
+     * @var Article $article
      */
     public function edit(Article $article, Request $request, EntityManagerInterface $em,FileUploader $fileUploader)
     {
@@ -91,13 +93,16 @@ class ArticleBackController extends AbstractController
         $form->handleRequest($request);
         $files = $form['uploads']->getData();
         $mainFile = $form['uploadMainPicture']->getData();
+        $galleryRepository = $this->getDoctrine()->getRepository(Gallery::class);
         if ($form->isSubmitted() && $form->isValid()) {
           //adding main picture
             $newFilename = $fileUploader->uploadFile($mainFile);
             $mainPicture = new Gallery();
             $mainPicture->setName($newFilename);
             $mainPicture->setArticle($article);
+            $galleryRepository->looseMainPicture($article->getId());
             $mainPicture->setMainPicture(true);
+
 
             $em->persist($mainPicture);
             //gallery
@@ -126,6 +131,7 @@ class ArticleBackController extends AbstractController
     /**
      * @Route("/admin/article/galley/delete/{id}", name="article_admin_delete")
      * @Security("is_granted('ROLE_ADMIN')")
+     * @var Article $article
      */
     public function deleteArticle(Request $request, EntityManagerInterface $em,Article $article)
     {
@@ -167,6 +173,7 @@ class ArticleBackController extends AbstractController
     /**
      * @Route("/admin/article/gallery/mainPicture/{id}/{article}", name="article_admin_changeMainPicture")
      * @Security("is_granted('ROLE_ADMIN')")
+     * @var Gallery $gallery
      */
     public function changeMainPicture(Article $article, Gallery $gallery)
     {
@@ -181,5 +188,6 @@ class ArticleBackController extends AbstractController
     /**
      * @Route("/admin/article/addVideo/{id}" name="galleryList")
      * @Security("is_granted('ROLE_ADMIN')")
+     * @var Video $video
      */
 }
