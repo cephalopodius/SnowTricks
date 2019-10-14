@@ -65,7 +65,7 @@
 
             <div class="row">
 
-                        {% for element in articles%}
+                        {% for element in articles %}
 
                             <div class="col-6 col-12-narrower">
                                 <section>
@@ -76,10 +76,12 @@
                                             {% endif %}
                                         {% endfor %}
                                     </a>
+                                    <div class="row">
                                     <header>
                                         <h3>{{ element.title }}</h3>
                                     </header>
-                                         <p>{{ element.content }}</p>
+                                  </div>
+                                         <p>{{ element.content|length > 50 ? element.content|slice(0,50) ~'...' : element.content }}</p>
                                 </section>
 
                             </div>

@@ -24,7 +24,7 @@ class Gallery
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="galleries")
-     * @ORM\JoinColumn(nullable=false,referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(nullable=true,referencedColumnName="id")
      */
     private $article;
 

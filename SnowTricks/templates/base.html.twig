@@ -6,9 +6,12 @@
         {% block stylesheets %}
             <meta charset="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
             <link rel="stylesheet" href="{{ asset('css/main.css') }}">
             <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+            <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
             <noscript> <link rel="stylesheet" href="{{ asset('css/noscript.css') }}"></noscript>
+
         {% endblock stylesheets%}
 
     <!-- Header peeek machin fait pas grand chose == class="{ app.session.flashbag.peek('success')|length > 0 ? '' : 'mb-5' }} -->
@@ -23,7 +26,6 @@
                         <ul>
                             <li><a href="{{ path('admin_article_new') }}">Ajouter</a></li>
                             <li><a href="{{ path('admin_article_editList') }}">Editer</a></li>
-
                             <li><a href="contact.html">Contact</a></li>
                         </ul>
                     </li>
@@ -57,7 +59,8 @@
     <script src="{{ asset('js/breakpoints.min.js') }}"></script>
     <script src="{{ asset('js/util.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 {% endblock %}
     </body>
 </html>

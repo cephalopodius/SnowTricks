@@ -13,6 +13,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ArticleFrontController extends AbstractController
 {
@@ -47,7 +49,6 @@ class ArticleFrontController extends AbstractController
             return $this->redirectToRoute('article_show', array('slug' => $slug));
         }
 
-
         return $this->render('article/show.html.twig',[
             'article'=>$articleRepository->find($slug),
             'gallery'=>$galleryRepository->findAll(),
@@ -58,6 +59,7 @@ class ArticleFrontController extends AbstractController
     }
     /**
      * @Route("/admin/article/editList", name="admin_article_editList")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function editList(ArticleRepository $articleRepository)
     {
@@ -67,6 +69,7 @@ class ArticleFrontController extends AbstractController
     }
     /**
      * @Route("/admin/article/galleryList/{articleMatch}", name="article_admin_uploadList")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function uploadList($articleMatch,GalleryRepository $galleryRepository,ArticleRepository $articleRepository)
     {

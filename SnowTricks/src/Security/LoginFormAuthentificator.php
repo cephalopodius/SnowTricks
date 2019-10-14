@@ -39,6 +39,7 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
     public function supports(Request $request)
     {
         // do your work when we're POSTing to the login page
+
         return $request->attributes->get('_route') === 'app_login'
             && $request->isMethod('POST');
     }
@@ -55,6 +56,7 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
             Security::LAST_USERNAME,
             $credentials['email']
         );
+
         return $credentials;
     }
 
@@ -64,6 +66,7 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
         }
+
         return $this->userRepository->findOneBy(['email' => $credentials['email']]);
     }
 
@@ -75,14 +78,16 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)){
+        if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
+
         return new RedirectResponse($this->router->generate('app_homepage'));
     }
 
 
-    public function getLoginUrl(){
+    public function getLoginUrl()
+    {
         return $this->router->generate('app_login');
     }
 }

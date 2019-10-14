@@ -11,7 +11,7 @@ class GroupeFixture extends Fixture
     public function load(ObjectManager $manager)
     {
         $i=0;
-        while ($i <6) {
+        while ($i <7) {
 
             $groupe = new Groupe();
             if($i == 0){

@@ -37,7 +37,8 @@
                 {{ article.groupe.groupname }}
             </td>
             <td style="width: 20%;">
-                {{ article.content }}
+                {{ article.content|length > 25 ? article.content|slice(0,25) ~'...' : article.content  }}
+
             </td>
             <td>
                  {{ article.publishedAt|date('Y-m-d') }}
@@ -56,7 +57,7 @@
                 </a>
             </td>
             <td>
-                <a rel="icon" href="{{path( "article_admin_delete_gallery", { id: article.id})}}">
+                <a rel="icon" href="{{path( "article_admin_delete", { id: article.id})}}">
 
                     <i class="fa fa-trash" aria-hidden="true"></i>
                 </a>

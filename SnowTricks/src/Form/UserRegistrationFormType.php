@@ -30,17 +30,13 @@ class UserRegistrationFormType extends AbstractType
                 'attr' => array('placeholder' => 'Entrez votre Prénom')
             ))
             ->add('uploadPictureProfile', FileType::class, ([
-                'label' => 'Uploads (JPG file)',
-
+                'label' => 'Uploads votre image de profile (JPG file)',
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
-
                 // make it optional so you don't have to re-upload the  file
                 // everytime you edit the Product details
                 'required' => false,
-
             ]))
-
         ;
     }
 

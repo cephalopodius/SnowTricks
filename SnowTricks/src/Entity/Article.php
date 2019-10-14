@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\Date;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -25,7 +25,7 @@ class Article
     private $title;
 
     /**
-     * @ORM\Column(type="text", length=255)
+     * @ORM\Column(type="text", length=65535)
      */
     private $content;
 

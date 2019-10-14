@@ -71,10 +71,8 @@ class SecurityController extends AbstractController
                     } catch (FileException $e) {
                         // ... handle exception if something happens during file upload
                     }
+                $user->setPicture($newFilename);
             }
-
-
-
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
