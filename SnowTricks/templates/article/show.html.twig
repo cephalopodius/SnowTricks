@@ -5,9 +5,7 @@
     {%  block carousel %}
     <!--Carousel Wrapper-->
     <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
-        <!--Indicators-->
 
-        <!--/.Indicators-->
         <!--Slides-->
         <div class="carousel-inner" role="listbox">
             {% for picture in gallery %}
@@ -43,8 +41,17 @@
         <!--/.Controls-->
     </div>
     <!--/.Carousel Wrapper-->
-
 {% endblock %}
+
+{% block video %}
+  {% for videos in video %}
+      {% if videos.article.id == article.id %}
+      <iframe width="560" height="315" src="{{videos.link}}"
+      frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      {% endif %}
+  {% endfor %}
+{% endblock %}
+
     <h2><strong>{{ article.title }} </strong></h2>
 
     <div class="row">
@@ -93,6 +100,35 @@
                     </section>
                 </div>
             </div>
+            <!-- pagination comment -->
+            {% block pagination %}
+
+                {% if pageNumber > 0 %}
+                <div class="col-6 center" >
+                  <div class="commentPagination">
+                    <p>  Page de commentaire : </p>
+                   {% for i in 1..pageNumber  %}
+                      {% if i == currentPage %}
+                      <u>
+                         <a href="{{path( "article_show", { slug: article.id, commentCurrentPage: loop.index })}}">
+                           {{ loop.index }}
+                         </a>
+                       </u>
+                     {% else %}
+
+                         <a href="{{path( "article_show", { slug: article.id, commentCurrentPage: loop.index })}}" >
+                           {{ loop.index }}
+                         </a>
+                     {% endif %}
+                     -
+                {% endfor %}
+
+              </div>
+            </div>
+              {% endif %}
+
+            {% endblock %}
+
             <!-- Add comment -->
             {% if is_granted('ROLE_ADMIN') %}
 

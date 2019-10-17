@@ -28,7 +28,7 @@ class ArticleFormType extends AbstractType
 
                    // make it optional so you don't have to re-upload the  file
                    // everytime you edit the Product details
-                   'required' => true,
+                   'required' => false,
 
                    // unmapped fields can't define their validation using annotations
                    // in the associated entity, so you can use the PHP constraint classes

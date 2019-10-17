@@ -69,7 +69,7 @@
 
                             <div class="col-6 col-12-narrower">
                                 <section>
-                                    <a href="{{path( "article_show", { slug: element.id })}}" class="image featured">
+                                    <a href="{{path( "article_show", { slug: element.id})}}" class="image featured">
                                         {% for picture in gallery  %}
                                             {%  if  (picture.article.id == element.id and picture.mainPicture == 1) %}
                                             <img src="images/upload/{{ picture.name }}" alt="" />

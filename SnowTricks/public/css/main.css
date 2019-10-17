@@ -3303,7 +3303,6 @@ input, select, textarea {
 			body.contact #main {
 				padding-bottom: 0;
 			}
-
 		/* CTA */
 
 			#cta {
@@ -3339,6 +3338,14 @@ input, select, textarea {
 				left: 8px;
 				width: 50px;
 				height: 34px;
+			}
+			/* Pagination  */
+			.commentPagination{
+				display:inline-block;
+				text-align: center;
+			}
+			.actualPage{
+				color: red;
 			}
 	/*  COMMENT  */
 

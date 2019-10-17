@@ -5,11 +5,13 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Gallery;
+use App\Entity\Video;
 use App\Form\ArticleFormType;
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
 use App\Repository\GalleryRepository;
+use App\Repository\VideoRepository;
 use App\Repository\UserRepository;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManager;
@@ -95,16 +97,17 @@ class ArticleBackController extends AbstractController
         $mainFile = $form['uploadMainPicture']->getData();
         $galleryRepository = $this->getDoctrine()->getRepository(Gallery::class);
         if ($form->isSubmitted() && $form->isValid()) {
-          //adding main picture
-            $newFilename = $fileUploader->uploadFile($mainFile);
-            $mainPicture = new Gallery();
-            $mainPicture->setName($newFilename);
-            $mainPicture->setArticle($article);
-            $galleryRepository->looseMainPicture($article->getId());
-            $mainPicture->setMainPicture(true);
-
+          if($mainFile){
+            //adding main picture
+              $newFilename = $fileUploader->uploadFile($mainFile);
+              $mainPicture = new Gallery();
+              $mainPicture->setName($newFilename);
+              $mainPicture->setArticle($article);
+              $galleryRepository->looseMainPicture($article->getId());
+              $mainPicture->setMainPicture(true);
 
             $em->persist($mainPicture);
+              }
             //gallery
             if ($files) {
                 foreach ($files as $file){
@@ -129,7 +132,7 @@ class ArticleBackController extends AbstractController
         ]);
     }
     /**
-     * @Route("/admin/article/galley/delete/{id}", name="article_admin_delete")
+     * @Route("/admin/article/delete/{id}", name="article_admin_delete")
      * @Security("is_granted('ROLE_ADMIN')")
      * @var Article $article
      */
@@ -143,7 +146,7 @@ class ArticleBackController extends AbstractController
     }
 
     /**
-     * @Route("/admin/article/gallery/delete/{id}", name="article_admin_delete_gallery")
+     * @Route("/admin/article/gallery/delete/{id}", name="article_admin_gallery_delete")
      * @Security("is_granted('ROLE_ADMIN')")
      * @var Gallery $gallery
      */
@@ -168,26 +171,44 @@ class ArticleBackController extends AbstractController
 
         $this->addFlash('deleteGallery', 'Le fichier à bien été supprimé');
 
-        return $this->redirectToRoute('article_admin_uploadList', array('articleMatch' => $articleMatch->getId()));
+        return $this->redirectToRoute('article_admin_galleryList', array('articleMatch' => $articleMatch->getId()));
     }
     /**
      * @Route("/admin/article/gallery/mainPicture/{id}/{article}", name="article_admin_changeMainPicture")
      * @Security("is_granted('ROLE_ADMIN')")
      * @var Gallery $gallery
      */
-    public function changeMainPicture(Article $article, Gallery $gallery)
+    public function changeMainPicture($id,Article $article, Gallery $gallery, EntityManagerInterface $em)
     {
         $galleryRepository = $this->getDoctrine()->getRepository(Gallery::class);
         $articleMatch = $gallery->getArticle();
-        $galleryRepository->looseMainPicture($article);
+        $galleryRepository->looseMainPicture($article->getId());
         $galleryRepository->changeMainPicture($id);
-        $this->getDoctrine()->flush();
+        $em->flush();
+
         $this->addFlash('deleteGallery', "L'image principale à été changée");
-        return $this->redirectToRoute('article_admin_uploadList', array('articleMatch' => $articleMatch->getId()));
+        return $this->redirectToRoute('article_admin_galleryList', array('articleMatch' => $articleMatch->getId()));
     }
-    /**
-     * @Route("/admin/article/addVideo/{id}" name="galleryList")
-     * @Security("is_granted('ROLE_ADMIN')")
-     * @var Video $video
-     */
+
+     /**
+      * @Route("/admin/article/video/delete/{id}", name="article_admin_delete_video")
+      * @Security("is_granted('ROLE_ADMIN')")
+      * @var Video $video
+      */
+     public function deleteVideo(Video $video, EntityManagerInterface $em,Request $request)
+     {
+        $articleMatch = $video->getArticle();
+         $em->remove($video);
+         $em->flush();
+
+         $this->addFlash('deleteVideo', 'La video à bien été supprimée');
+
+         return $this->redirectToRoute('article_admin_videoListAdd', array('articleMatch' => $articleMatch->getId()));
+     }
+     /**
+      * @Route("/admin/article/addVideo/{id}" name="galleryList")
+      * @Security("is_granted('ROLE_ADMIN')")
+      * @var Video $video
+      */
+
 }
