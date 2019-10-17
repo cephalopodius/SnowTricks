@@ -17,26 +17,26 @@ class VideoFixture extends Fixture implements DependentFixtureInterface
 
             $video = new Video();
             if($i == 0){
-                $video->setLink(sprintf('https://www.youtube.com/watch?v=n0F6hSpxaFc'));
+                $video->setLink(sprintf('https://www.youtube.com/embed/watch?v=n0F6hSpxaFc'));
                 $video->setArticle($this->getReference('article1'));
 
                 $manager->persist($video);
                 $manager->flush();
             }if($i == 1){
-                $video->setLink(sprintf('https://www.youtube.com/watch?v=n0F6hSpxaFc'));
+                $video->setLink(sprintf('https://www.youtube.com/embed/watch?v=n0F6hSpxaFc'));
                 $video->setArticle($this->getReference('article2'));
 
                 $manager->persist($video);
                 $manager->flush();
             }
             if($i == 2){
-                $video->setLink(sprintf('https://www.youtube.com/watch?v=n0F6hSpxaFc'));
+                $video->setLink(sprintf('https://www.youtube.com/embed/watch?v=n0F6hSpxaFc'));
                 $video->setArticle($this->getReference('article6'));
 
                 $manager->persist($video);
                 $manager->flush();
             }if($i == 3){
-                $video->setLink(sprintf('https://www.youtube.com/watch?v=n0F6hSpxaFc'));
+                $video->setLink(sprintf('https://www.youtube.com/embed/watch?v=n0F6hSpxaFc'));
                 $video->setArticle($this->getReference('article3'));
 
                 $manager->persist($video);

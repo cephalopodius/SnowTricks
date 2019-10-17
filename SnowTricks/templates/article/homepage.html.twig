@@ -78,7 +78,17 @@
                                     </a>
                                     <div class="row">
                                     <header>
-                                        <h3>{{ element.title }}</h3>
+                                        <h3>{{ element.title }}
+                                          {% if is_granted('ROLE_ADMIN') %}
+                                          <a href="{{path( "admin_edit_article", { id: element.id})}}">
+                                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                          </a>
+
+                                            <a rel="icon" href="{{path( "article_admin_delete", { id: element.id})}}">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </a>
+                                        {%  endif %}
+                                        </h3>
                                     </header>
                                   </div>
                                          <p>{{ element.content|length > 50 ? element.content|slice(0,50) ~'...' : element.content }}</p>

@@ -85,7 +85,7 @@ class ArticleBackController extends AbstractController
     }
 
     /**
-     * @Route("/admin/article/edit/{id}", name="admin_edit_article")
+     * @Route("/admin/article/{id}/edit", name="admin_edit_article")
      * @Security("is_granted('ROLE_ADMIN')")
      * @var Article $article
      */
@@ -132,7 +132,7 @@ class ArticleBackController extends AbstractController
         ]);
     }
     /**
-     * @Route("/admin/article/delete/{id}", name="article_admin_delete")
+     * @Route("/admin/article/{id}/delete", name="article_admin_delete")
      * @Security("is_granted('ROLE_ADMIN')")
      * @var Article $article
      */
@@ -146,7 +146,7 @@ class ArticleBackController extends AbstractController
     }
 
     /**
-     * @Route("/admin/article/gallery/delete/{id}", name="article_admin_gallery_delete")
+     * @Route("/admin/article/gallery/{id}/delete/", name="article_admin_gallery_delete")
      * @Security("is_granted('ROLE_ADMIN')")
      * @var Gallery $gallery
      */
@@ -174,7 +174,7 @@ class ArticleBackController extends AbstractController
         return $this->redirectToRoute('article_admin_galleryList', array('articleMatch' => $articleMatch->getId()));
     }
     /**
-     * @Route("/admin/article/gallery/mainPicture/{id}/{article}", name="article_admin_changeMainPicture")
+     * @Route("/admin/article/{article}/gallery/{id}/mainPicture", name="article_admin_changeMainPicture")
      * @Security("is_granted('ROLE_ADMIN')")
      * @var Gallery $gallery
      */
@@ -191,7 +191,7 @@ class ArticleBackController extends AbstractController
     }
 
      /**
-      * @Route("/admin/article/video/delete/{id}", name="article_admin_delete_video")
+      * @Route("/admin/article/video/{id}/delete", name="article_admin_delete_video")
       * @Security("is_granted('ROLE_ADMIN')")
       * @var Video $video
       */
@@ -206,9 +206,14 @@ class ArticleBackController extends AbstractController
          return $this->redirectToRoute('article_admin_videoListAdd', array('articleMatch' => $articleMatch->getId()));
      }
      /**
-      * @Route("/admin/article/addVideo/{id}" name="galleryList")
+      * @Route("/admin/article/Video/{id}/add", name="galleryList")
       * @Security("is_granted('ROLE_ADMIN')")
       * @var Video $video
       */
+      public function addVideo(Video $video, EntityManagerInterface $em,Request $request)
+      {
 
+        $this->addFlash('addVideo', 'La video à bien été ajoutée');
+          return $this->redirectToRoute('article_admin_videoListAdd', array('articleMatch' => $articleMatch->getId()));
+      }
 }

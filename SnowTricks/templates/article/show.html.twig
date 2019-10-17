@@ -54,11 +54,11 @@
 
     <h2><strong>{{ article.title }} </strong></h2>
 
-    <div class="row">
-      <h5>
-    Par  {{ article.author.firstName }} publié le {{ article.publishedAt|date('Y-m-d') }}
-    </div>
-  </h5>
+
+      <h6>
+    <p>Par  {{ article.author.firstName }} publié le {{ article.publishedAt|date('Y-m-d') }}</p>
+
+  </h6>
     <div class="row">
         <div class="col-12-narrower">
            <p> {{ article.content }} </p>
@@ -68,7 +68,7 @@
         <div class="comment-container">
             <div class="row">
                 <div class="col-md-8">
-                    <h2 class="page-header">Commentaires</h2>
+                    <h4 class="page-header">Commentaires</h2>
                     <section class="comment-list">
                         <!-- First Comment -->
                         {% for comments in comment  %}
@@ -132,7 +132,7 @@
             <!-- Add comment -->
             {% if is_granted('ROLE_ADMIN') %}
 
-                <h1>Commenter </h1>
+                <h4>Commenter </h4>
                 {{ form_start(commentForm) }}
                 {{ form_widget(commentForm) }}
                 <button type="submit" class="btn btn-primary">Commenter</button>

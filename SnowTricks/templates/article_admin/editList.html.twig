@@ -25,7 +25,7 @@
     {% for article in article %}
         <tr>
             <td>
-                <a href="edit/{{ article.id }}">
+                <a href="{{path( "admin_edit_article", { id: article.id})}}">
                     {{ article.title }}
                 </a>
             </td>

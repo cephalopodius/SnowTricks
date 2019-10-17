@@ -41,13 +41,12 @@ class ArticleFormType extends AbstractType
                      'multiple' => true
                  ]))
 
-                 ->add('groupe',EntityType::class, [
+                 ->add('groupe', EntityType::class, [
                      'class'=> Groupe::class,
-                        'choice_label' =>'Groupname',],
-                  ChoiceType::class, [
-                     'choices' => [
-                ],
-            ]);
+                     'choice_label' =>'Groupname',
+                    ],
+                     ChoiceType::class
+                   );
     }
     public function configureOptions(OptionsResolver $resolver)
     {

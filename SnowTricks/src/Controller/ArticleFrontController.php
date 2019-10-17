@@ -65,7 +65,6 @@ class ArticleFrontController extends AbstractController
             'video'=>$videoRepository->findAll(),
             'commentForm'=> $form->createView(),
         ]);
-
     }
     /**
      * @Route("/admin/article/editList", name="admin_article_editList")
@@ -79,7 +78,7 @@ class ArticleFrontController extends AbstractController
         ]);
     }
     /**
-     * @Route("/admin/article/galleryList/{articleMatch}", name="article_admin_galleryList")
+     * @Route("/admin/article/{articleMatch}/galleryList", name="article_admin_galleryList")
      * @Security("is_granted('ROLE_ADMIN')")
      * @var Article $article
      */
@@ -91,7 +90,7 @@ class ArticleFrontController extends AbstractController
         ]);
     }
     /**
-     * @Route("/admin/article/videoListAdd/{articleMatch}", name="article_admin_videoListAdd")
+     * @Route("/admin/article/{articleMatch}/videoListAdd", name="article_admin_videoListAdd")
      * @Security("is_granted('ROLE_ADMIN')")
      * @var Article $article
      */

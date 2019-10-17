@@ -13,7 +13,6 @@ class ArticleFixture extends Fixture implements DependentFixtureInterface
     {
         $i = 0;
         while ($i < 10) {
-
             $article = new Article();
             if ($i == 0) {
                 $article->setTitle(sprintf('Grab'));
@@ -22,15 +21,12 @@ Il faut d'abord faire un saut, un simple ollie par exemple comme on peut le voir
                 $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
                 $article->setAuthor($this->getReference('admin'));
                 $article->setGroupe($this->getReference('Grabs'));
-
                 $manager->persist($article);
                 $manager->flush();
-
                 $this->addReference('article1',$article);
             }
             if ($i == 1) {
                 $article->setTitle(sprintf('flip'));
-
                 $article->setContent(sprintf("Un flip est une rotation verticale. On distingue les front flips, rotations en avant, et les back flips, rotations en arrière.
 
 Il est possible de faire plusieurs flips à la suite, et d'ajouter un grab à la rotation.
@@ -41,73 +37,56 @@ Néanmoins, en dépit de la difficulté technique relative d'une telle figure, l
                 $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
                 $article->setAuthor($this->getReference('admin'));
                 $article->setGroupe($this->getReference('Flips'));
-
                 $manager->persist($article);
                 $manager->flush();
-
                 $this->addReference('article2',$article);
             }
             if ($i == 2) {
                 $article->setTitle(sprintf('Rotation'));
-
                 $article->setContent(sprintf("On désigne par le mot « rotation » uniquement des rotations horizontales ; les rotations verticales sont des flips. Le principe est d'effectuer une rotation horizontale pendant le saut, puis d'attérir en position switch ou normal.Une rotation peut être frontside ou backside : une rotation frontside correspond à une rotation orientée vers la carre backside. Cela peut paraître incohérent mais l'origine étant que dans un halfpipe ou une rampe de skateboard, une rotation frontside se déclenche naturellement depuis une position frontside (i.e. l'appui se fait sur la carre frontside), et vice-versa. Ainsi pour un rider qui a une position regular (pied gauche devant), une rotation frontside se fait dans le sens inverse des aiguilles d'une montre."));
                 $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
                 $article->setAuthor($this->getReference('admin'));
                 $article->setGroupe($this->getReference('Rotations'));
-
                 $manager->persist($article);
                 $manager->flush();
-
                 $this->addReference('article3',$article);
             }
             if ($i == 3) {
                 $article->setTitle(sprintf('One foot Trick'));
-
                 $article->setContent(sprintf("Figures réalisée avec un pied décroché de la fixation, afin de tendre la jambe correspondante pour mettre en évidence le fait que le pied n'est pas fixé. Ce type de figure est extrêmement dangereuse pour les ligaments du genou en cas de mauvaise réception. "));
                 $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
                 $article->setAuthor($this->getReference('admin'));
                 $article->setGroupe($this->getReference('Foot'));
-
                 $manager->persist($article);
                 $manager->flush();
-
                 $this->addReference('article4',$article);
             }
             if ($i == 4) {
                 $article->setTitle(sprintf('Rotation Désaxées'));
-
                 $article->setContent(sprintf("Une rotation désaxée est une rotation initialement horizontale mais lancée avec un mouvement des épaules particulier qui désaxe la rotation. Il existe différents types de rotations désaxées (corkscrew ou cork, rodeo, misty, etc.) en fonction de la manière dont est lancé le buste. Certaines de ces rotations, bien qu'initialement horizontales, font passer la tête en bas.
-
 Bien que certaines de ces rotations soient plus faciles à faire sur un certain nombre de tours (ou de demi-tours) que d'autres, il est en théorie possible de d'attérir n'importe quelle rotation désaxée avec n'importe quel nombre de tours, en jouant sur la quantité de désaxage afin de se retrouver à la position verticale au moment voulu.
 
 Il est également possible d'agrémenter une rotation désaxée par un grab. "));
                 $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
                 $article->setAuthor($this->getReference('admin'));
                 $article->setGroupe($this->getReference('Rotations Désaxées'));
-
                 $manager->persist($article);
                 $manager->flush();
-
                 $this->addReference('article5',$article);
             }
             if ($i == 5) {
                 $article->setTitle(sprintf('Slide'));
-
                 $article->setContent(sprintf("Un slide consiste à glisser sur une barre de slide. Le slide se fait soit avec la planche dans l'axe de la barre, soit perpendiculaire, soit plus ou moins désaxé.
-
 On peut slider avec la planche centrée par rapport à la barre (celle-ci se situe approximativement au-dessous des pieds du rideur), mais aussi en nose slide, c'est-à-dire l'avant de la planche sur la barre, ou en tail slide, l'arrière de la planche sur la barre. "));
                 $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
                 $article->setAuthor($this->getReference('admin'));
                 $article->setGroupe($this->getReference('Slides'));
-
                 $manager->persist($article);
                 $manager->flush();
-
                 $this->addReference('article6',$article);
             }
             if ($i == 6) {
                 $article->setTitle(sprintf('Old School'));
-
                 $article->setContent(sprintf("Le terme old school désigne un style de freestyle caractérisée par en ensemble de figure et une manière de réaliser des figures passée de mode, qui fait penser au freestyle des années 1980 - début 1990 (par opposition à new school) :
 
     figures désuètes : Japan air, rocket air, ...
@@ -121,15 +100,12 @@ On peut slider avec la planche centrée par rapport à la barre (celle-ci se sit
                 $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
                 $article->setAuthor($this->getReference('admin'));
                 $article->setGroupe($this->getReference('OldSchool'));
-
                 $manager->persist($article);
                 $manager->flush();
-
                 $this->addReference('article7',$article);
             }
             if ($i == 7) {
                 $article->setTitle(sprintf('Les differents style de Grabs'));
-
                 $article->setContent(sprintf("Voici la liste de tous les style de grab :     mute : saisie de la carre frontside de la planche entre les deux pieds avec la main avant ;
     sad ou melancholie ou style week : saisie de la carre backside de la planche, entre les deux pieds, avec la main avant ;
     indy : saisie de la carre frontside de la planche, entre les deux pieds, avec la main arrière ;
@@ -142,14 +118,11 @@ On peut slider avec la planche centrée par rapport à la barre (celle-ci se sit
                 $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
                 $article->setAuthor($this->getReference('admin'));
                 $article->setGroupe($this->getReference('Grabs'));
-
                 $manager->persist($article);
                 $manager->flush();
-
                 $this->addReference('article8',$article);
             }if ($i == 8) {
                 $article->setTitle(sprintf('Les Barres de Slide'));
-
                 $article->setContent(sprintf("Pour les barres de slide, la dénomination se fait de la manière suivante :
 
     d'abord le nom de la figure d'entrée si elle est autre qu'un 90, suivi du mot anglais to
@@ -166,28 +139,22 @@ Parfois, quand seule la figure d'entrée ou de sortie est notable, par exemple u
                 $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
                 $article->setAuthor($this->getReference('admin'));
                 $article->setGroupe($this->getReference('Slides'));
-
                 $manager->persist($article);
                 $manager->flush();
-
                 $this->addReference('article9',$article);
             }if ($i == 9) {
                 $article->setTitle(sprintf('Slide'));
-
                 $article->setContent(sprintf("Un slide consiste à glisser sur une barre de slide. Le slide se fait soit avec la planche dans l'axe de la barre, soit perpendiculaire, soit plus ou moins désaxé.
 
 On peut slider avec la planche centrée par rapport à la barre (celle-ci se situe approximativement au-dessous des pieds du rideur), mais aussi en nose slide, c'est-à-dire l'avant de la planche sur la barre, ou en tail slide, l'arrière de la planche sur la barre. "));
                 $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
                 $article->setAuthor($this->getReference('admin'));
                 $article->setGroupe($this->getReference('Slides'));
-
                 $manager->persist($article);
                 $manager->flush();
-
                 $this->addReference('article10',$article);
             }if ($i == 10) {
                 $article->setTitle(sprintf('Les sauts'));
-
                 $article->setContent(sprintf("Les tricks sont pour la plupart du temps, des rotations qui peuvent être de plusieurs types, combinées ou non avec un grab, et effectuées en position normal ou switch. La dénomination des figures ainsi créées répond à l'usage suivant :
 
     d'abord le mot « switch » si la figure est effectuée du côté non naturel
@@ -201,19 +168,15 @@ La connaissance du mode de départ (normal ou switch) et du nombre de tours suff
                 $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
                 $article->setAuthor($this->getReference('admin'));
                 $article->setGroupe($this->getReference('Grabs'));
-
                 $manager->persist($article);
                 $manager->flush();
-
                 $this->addReference('article6',$article);
             }
             $i++;
         }
     }
-
     public function getDependencies()
     {
         return [UserFixture::class];
-
     }
 }
