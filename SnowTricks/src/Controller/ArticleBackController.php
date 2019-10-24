@@ -46,9 +46,16 @@ class ArticleBackController extends AbstractController
             $files = $form['uploads']->getData();
             $mainFile = $form['uploadMainPicture']->getData();
             $article->setAuthor($this->getUser());
+            $videoLink= $form['video']->getData();
 
             $em->persist($article);
-
+            //adding video link
+            if ($videoLink){
+              $video = new Video();
+              $video->setLink($videoLink);
+              $video->setArticle($article);
+              $em->persist($video);
+            }
             //adding main picture
               $newFilename = $fileUploader->uploadFile($mainFile);
               $mainPicture = new Gallery();
@@ -61,7 +68,6 @@ class ArticleBackController extends AbstractController
             if ($files) {
                 $i=0;
                 foreach ($files as $file){
-
                     $newFilename = $fileUploader->uploadFile($file);
 
                     $gallery = new Gallery();
@@ -70,7 +76,6 @@ class ArticleBackController extends AbstractController
                     $gallery->setMainPicture(false);
 
                     $em->persist($gallery);
-
                     $i++;
                 }
             }
@@ -81,7 +86,6 @@ class ArticleBackController extends AbstractController
         return $this->render('article_admin/new.html.twig', [
             'articleForm' => $form->createView()
         ]);
-
     }
 
     /**
@@ -93,6 +97,7 @@ class ArticleBackController extends AbstractController
     {
         $form = $this->createForm(ArticleFormType::class, $article);
         $form->handleRequest($request);
+        $videoLink= $form['video']->getData();
         $files = $form['uploads']->getData();
         $mainFile = $form['uploadMainPicture']->getData();
         $galleryRepository = $this->getDoctrine()->getRepository(Gallery::class);
@@ -107,6 +112,13 @@ class ArticleBackController extends AbstractController
               $mainPicture->setMainPicture(true);
 
             $em->persist($mainPicture);
+              }
+              //video
+              if ($videoLink){
+                $video = new Video();
+                $video->setLink($videoLink);
+                $video->setArticle($article);
+                $em->persist($video);
               }
             //gallery
             if ($files) {

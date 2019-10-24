@@ -21,14 +21,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class ArticleFrontController extends AbstractController
 {
     /**
-     * @Route("/", name="app_homepage")
+     * @Route("/{articleNumbers}",defaults={"articleNumbers" = 6}, name="app_homepage")
      * @var Article $article
      */
-    public function homepage(ArticleRepository $articleRepository,GalleryRepository $galleryRepository )
+    public function homepage($articleNumbers,ArticleRepository $articleRepository,GalleryRepository $galleryRepository )
     {
         return $this->render('article/homepage.html.twig', [
-            'articles'=> $articleRepository->findAllPublishedOrderedByNewest(),
+            'articles'=> $articleRepository->findByRawPublishedOrderedByNewest($articleNumbers),
             'gallery' => $galleryRepository->findAll(),
+            'currentArticleNumbers' => $articleNumbers,
         ]);
     }
 
@@ -74,7 +75,7 @@ class ArticleFrontController extends AbstractController
     public function editList(ArticleRepository $articleRepository)
     {
         return $this->render('article_admin/editList.html.twig', [
-            'article' => $articleRepository->findAllPublishedOrderedByNewest(),
+            'article' => $articleRepository->findByRawPublishedOrderedByNewest(9999),
         ]);
     }
     /**

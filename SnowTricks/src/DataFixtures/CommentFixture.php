@@ -13,10 +13,8 @@ class CommentFixture extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-
         $i = 0;
         while ($i < 12) {
-
             $comment = new Comment();
             if ($i == 0) {
                 $comment->setContent(sprintf('premier commentaire'));
@@ -109,17 +107,13 @@ class CommentFixture extends Fixture implements DependentFixtureInterface
                 $comment->setAuthorId($this->getReference('admin'));
                 $comment->setCommentDate(new \DateTime(sprintf('-%d days', rand(1, 100))));
             }
-
             $manager->persist($comment);
             $manager->flush();
-
             $i++;
         }
-
     }
     public function getDependencies()
     {
         return [UserFixture::class];
-
     }
 }

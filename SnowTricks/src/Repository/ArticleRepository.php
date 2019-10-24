@@ -20,10 +20,11 @@ class ArticleRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Article::class);
     }
-    public function findAllPublishedOrderedByNewest()
+    public function findByRawPublishedOrderedByNewest($articleNumbers)
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.publishedAt IS NOT NULL')
+            ->setMaxResults($articleNumbers)
             ->orderBy('a.publishedAt', 'DESC')
             ->getQuery()
             ->getResult()

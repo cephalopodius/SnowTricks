@@ -1,11 +1,10 @@
 <?php
-
-
 namespace App\Form;
 
 use App\Entity\Article;
 use App\Entity\Gallery;
 use App\Entity\Groupe;
+use App\Entity\Video;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -20,6 +19,7 @@ class ArticleFormType extends AbstractType
         $builder
                 ->add('title')
                 ->add('content')
+                ->add('video',null, array('mapped' => false))
                 ->add('uploadMainPicture', FileType::class, ([
                    'label' => "Uploads de l'image principale (fichier JPG)",
 

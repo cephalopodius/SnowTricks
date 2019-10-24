@@ -42,28 +42,28 @@
     </div>
     <!--/.Carousel Wrapper-->
 {% endblock %}
-
-{% block video %}
-  {% for videos in video %}
-      {% if videos.article.id == article.id %}
-      <iframe width="560" height="315" src="{{videos.link}}"
-      frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      {% endif %}
-  {% endfor %}
-{% endblock %}
-
     <h2><strong>{{ article.title }} </strong></h2>
-
-
       <h6>
     <p>Par  {{ article.author.firstName }} publié le {{ article.publishedAt|date('Y-m-d') }}</p>
-
   </h6>
     <div class="row">
         <div class="col-12-narrower">
            <p> {{ article.content }} </p>
         </div>
     </div>
+
+
+    {% block video %}
+    <div class="row">
+    <div class=" class=center-block">
+      {% for videos in video %}
+          {% if videos.article.id == article.id %}
+        {{videos.link|raw}}
+          {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+    {% endblock %}
     {% block comment %}
         <div class="comment-container">
             <div class="row">

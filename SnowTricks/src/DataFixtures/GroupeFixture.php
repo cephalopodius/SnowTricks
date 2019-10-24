@@ -12,7 +12,6 @@ class GroupeFixture extends Fixture
     {
         $i=0;
         while ($i <7) {
-
             $groupe = new Groupe();
             if($i == 0){
                 $groupe->setGroupname(sprintf('Les Grabs'));
@@ -38,9 +37,7 @@ class GroupeFixture extends Fixture
             }
             $manager->persist($groupe);
             $manager->flush();
-
             $i++;
         }
-
     }
 }
