@@ -152,7 +152,7 @@ class ArticleBackController extends AbstractController
     {
         $em->remove($article);
         $em->flush();
-        $this->addFlash('deleteArticle', 'L\'article à bien été supprimé');
+        $this->addFlash('success', "L'article à bien été supprimé");
 
         return $this->redirectToRoute('admin_article_editList');
     }
@@ -181,7 +181,7 @@ class ArticleBackController extends AbstractController
         $em->remove($gallery);
         $em->flush();
 
-        $this->addFlash('deleteGallery', 'Le fichier à bien été supprimé');
+        $this->addFlash('success', 'Le fichier à bien été supprimé');
 
         return $this->redirectToRoute('article_admin_galleryList', array('articleMatch' => $articleMatch->getId()));
     }
@@ -198,7 +198,7 @@ class ArticleBackController extends AbstractController
         $galleryRepository->changeMainPicture($id);
         $em->flush();
 
-        $this->addFlash('deleteGallery', "L'image principale à été changée");
+        $this->addFlash('success', "L'image principale à été changée");
         return $this->redirectToRoute('article_admin_galleryList', array('articleMatch' => $articleMatch->getId()));
     }
 
@@ -213,7 +213,7 @@ class ArticleBackController extends AbstractController
          $em->remove($video);
          $em->flush();
 
-         $this->addFlash('deleteVideo', 'La video à bien été supprimée');
+         $this->addFlash('success', 'La video à bien été supprimée');
 
          return $this->redirectToRoute('article_admin_videoListAdd', array('articleMatch' => $articleMatch->getId()));
      }
@@ -225,7 +225,7 @@ class ArticleBackController extends AbstractController
       public function addVideo(Video $video, EntityManagerInterface $em,Request $request)
       {
 
-        $this->addFlash('addVideo', 'La video à bien été ajoutée');
+        $this->addFlash('success', 'La video à bien été ajoutée');
           return $this->redirectToRoute('article_admin_videoListAdd', array('articleMatch' => $articleMatch->getId()));
       }
 }

@@ -21,11 +21,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class ArticleFrontController extends AbstractController
 {
     /**
-     * @Route("/{articleNumbers}",defaults={"articleNumbers" = 6}, name="app_homepage")
+     * @Route("/home/{articleNumbers}",defaults={"articleNumbers" = 0}, name="app_homepage")
      * @var Article $article
      */
     public function homepage($articleNumbers,ArticleRepository $articleRepository,GalleryRepository $galleryRepository )
     {
+      $articleNumbers = $articleNumbers + 6 ;
+
         return $this->render('article/homepage.html.twig', [
             'articles'=> $articleRepository->findByRawPublishedOrderedByNewest($articleNumbers),
             'gallery' => $galleryRepository->findAll(),
