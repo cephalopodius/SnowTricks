@@ -111,13 +111,13 @@
                    {% for i in 1..pageNumber  %}
                       {% if i == currentPage %}
                       <u>
-                         <a href="{{path( "article_show", { slug: article.id, commentCurrentPage: loop.index })}}">
+                         <a href="{{path( "article_show", { id: article.id, commentCurrentPage: loop.index })}}">
                            {{ loop.index }}
                          </a>
                        </u>
                      {% else %}
 
-                         <a href="{{path( "article_show", { slug: article.id, commentCurrentPage: loop.index })}}" >
+                         <a href="{{path( "article_show", { id: article.id, commentCurrentPage: loop.index })}}" >
                            {{ loop.index }}
                          </a>
                      {% endif %}
@@ -131,7 +131,7 @@
             {% endblock %}
 
             <!-- Add comment -->
-            {% if is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_USER') %}
 
                 <h4>Commenter </h4>
                 {{ form_start(commentForm) }}

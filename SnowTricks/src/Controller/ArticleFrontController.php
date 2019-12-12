@@ -17,17 +17,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class ArticleFrontController extends AbstractController
 {
     /**
+     * @Route("/{articleNumbers}",defaults={"articleNumbers" = 0})
      * @Route("/home/{articleNumbers}",defaults={"articleNumbers" = 0}, name="app_homepage")
      * @var Article $article
      */
-    public function homepage($articleNumbers,ArticleRepository $articleRepository,GalleryRepository $galleryRepository )
+    public function homepage(Request $request,$articleNumbers,ArticleRepository $articleRepository,GalleryRepository $galleryRepository )
     {
-      $articleNumbers = $articleNumbers + 6 ;
-
+        if($articleNumbers == 'home'){
+          $articleNumbers = 0;
+        }
+        $articleNumbers = $articleNumbers + 6 ;
         return $this->render('article/homepage.html.twig', [
             'articles'=> $articleRepository->findByRawPublishedOrderedByNewest($articleNumbers),
             'gallery' => $galleryRepository->findAll(),
@@ -41,7 +45,9 @@ class ArticleFrontController extends AbstractController
      */
     public function show($slug, $commentCurrentPage, Request $request, GalleryRepository $galleryRepository, ArticleRepository $articleRepository, VideoRepository $videoRepository, CommentRepository $commentRepository, EntityManagerInterface $em)
     {
-      $pageNumber=$commentRepository->findCountPageNumber($slug);
+
+      $id=$articleRepository->findOneBySlug($slug);
+      $pageNumber=$commentRepository->findCountPageNumber($id);
       $pageNumber=ceil($pageNumber/10);
 
         $comment = new Comment();
@@ -49,20 +55,20 @@ class ArticleFrontController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $comment->setArticle($articleRepository->find($slug));
+            $comment->setArticle($articleRepository->find($id));
             $comment->setAuthorId($this->getUser());
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();
             $this->addFlash('AddComment', 'Le commentaire à bien été ajouté');
-            return $this->redirectToRoute('article_show', array('slug' => $slug));
+            return $this->redirectToRoute('article_show', array('id' => $id));
         }
 
         return $this->render('article/show.html.twig',[
-            'article'=>$articleRepository->find($slug),
+            'article'=>$articleRepository->find($id),
             'gallery'=>$galleryRepository->findAll(),
-            'comment'=>$commentRepository->findComment($slug,$commentCurrentPage),
+            'comment'=>$commentRepository->findComment($id,$commentCurrentPage),
             'pageNumber'=>$pageNumber,
             'currentPage'=>$commentCurrentPage,
             'video'=>$videoRepository->findAll(),
@@ -71,7 +77,7 @@ class ArticleFrontController extends AbstractController
     }
     /**
      * @Route("/admin/article/editList", name="admin_article_editList")
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_USER')")
      * @var Article $article
      */
     public function editList(ArticleRepository $articleRepository)
@@ -82,7 +88,7 @@ class ArticleFrontController extends AbstractController
     }
     /**
      * @Route("/admin/article/{articleMatch}/galleryList", name="article_admin_galleryList")
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_USER')")
      * @var Article $article
      */
     public function uploadList($articleMatch,GalleryRepository $galleryRepository,ArticleRepository $articleRepository)
@@ -94,7 +100,7 @@ class ArticleFrontController extends AbstractController
     }
     /**
      * @Route("/admin/article/{articleMatch}/videoListAdd", name="article_admin_videoListAdd")
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_USER')")
      * @var Article $article
      */
     public function videoList($articleMatch,VideoRepository $videoRepository,ArticleRepository $articleRepository)

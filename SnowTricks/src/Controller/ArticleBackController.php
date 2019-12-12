@@ -31,7 +31,7 @@ class ArticleBackController extends AbstractController
 
     /**
      * @Route("/admin/article/new", name="admin_article_new")
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_USER')")
      * @var Article $article
      */
     public function new(EntityManagerInterface $em,Request $request,FileUploader $fileUploader)
@@ -90,7 +90,7 @@ class ArticleBackController extends AbstractController
 
     /**
      * @Route("/admin/article/{id}/edit", name="admin_edit_article")
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_USER')")
      * @var Article $article
      */
     public function edit(Article $article, Request $request, EntityManagerInterface $em,FileUploader $fileUploader)
@@ -145,7 +145,7 @@ class ArticleBackController extends AbstractController
     }
     /**
      * @Route("/admin/article/{id}/delete", name="article_admin_delete")
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_USER')")
      * @var Article $article
      */
     public function deleteArticle(Request $request, EntityManagerInterface $em,Article $article)
@@ -159,7 +159,7 @@ class ArticleBackController extends AbstractController
 
     /**
      * @Route("/admin/article/gallery/{id}/delete/", name="article_admin_gallery_delete")
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_USER')")
      * @var Gallery $gallery
      */
     public function deleteGallery(Gallery $gallery, EntityManagerInterface $em)
@@ -187,7 +187,7 @@ class ArticleBackController extends AbstractController
     }
     /**
      * @Route("/admin/article/{article}/gallery/{id}/mainPicture", name="article_admin_changeMainPicture")
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_USER')")
      * @var Gallery $gallery
      */
     public function changeMainPicture($id,Article $article, Gallery $gallery, EntityManagerInterface $em)
@@ -204,7 +204,7 @@ class ArticleBackController extends AbstractController
 
      /**
       * @Route("/admin/article/video/{id}/delete", name="article_admin_delete_video")
-      * @Security("is_granted('ROLE_ADMIN')")
+      * @Security("is_granted('ROLE_USER')")
       * @var Video $video
       */
      public function deleteVideo(Video $video, EntityManagerInterface $em,Request $request)
@@ -219,7 +219,7 @@ class ArticleBackController extends AbstractController
      }
      /**
       * @Route("/admin/article/Video/{id}/add", name="galleryList")
-      * @Security("is_granted('ROLE_ADMIN')")
+      * @Security("is_granted('ROLE_USER')")
       * @var Video $video
       */
       public function addVideo(Video $video, EntityManagerInterface $em,Request $request)
