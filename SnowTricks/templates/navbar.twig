@@ -4,7 +4,7 @@
     <nav id="nav" >
         <ul>
             <li class="current"><a href="{{ path('app_homepage') }}">Bienvenue</a></li>
-            {% if is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_USER') %}
                 <li class="submenu">
                     <a  href="#">Administration</a>
                     <ul>
@@ -16,7 +16,7 @@
         </li>
         {% endif %}
 
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_USER') %}
             <li><a href="{{ path('app_logout') }}" class="button primary">Déconnection</a></li>
         {% else %}
             <li><a href="{{ path('app_login') }}" class="button primary">Se connecter</a></li>

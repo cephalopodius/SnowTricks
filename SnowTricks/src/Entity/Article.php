@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\Date;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -23,9 +23,12 @@ class Article
      * @ORM\Column(type="string", length=255)
      */
     private $title;
-
     /**
-     * @ORM\Column(type="text", length=255)
+    * @ORM\Column(type="string", unique=true)
+     */
+    protected $slug;
+    /**
+     * @ORM\Column(type="text", length=65535)
      */
     private $content;
 
@@ -83,6 +86,8 @@ class Article
     {
         $this->title = $title;
 
+        $this->setSlug($this->title);
+
         return $this;
     }
 
@@ -109,8 +114,14 @@ class Article
 
         return $this;
     }
-
-
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+    public function setSlug($slug)
+    {
+        $this->slug = $this->slugify($slug);
+    }
     /**
      * @return Collection|Comment[]
      */
@@ -227,4 +238,31 @@ class Article
 
         return $this;
     }
+    public function slugify($text)
+{
+    // replace non letter or digits by -
+    $text = preg_replace('#[^\\pL\d]+#u', '-', $text);
+
+    // trim
+    $text = trim($text, '-');
+
+    // transliterate
+    if (function_exists('iconv'))
+    {
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+    }
+
+    // lowercase
+    $text = strtolower($text);
+
+    // remove unwanted characters
+    $text = preg_replace('#[^-\w]+#', '', $text);
+
+    if (empty($text))
+    {
+        return 'n-a';
+    }
+
+    return $text;
+}
 }

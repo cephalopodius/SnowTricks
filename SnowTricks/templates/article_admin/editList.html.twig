@@ -18,46 +18,40 @@
         <th>Vidéo</th>
         <th>Gallerie</th>
         <th>Supprimer</th>
-
     </tr>
     </thead>
     <tbody>
     {% for article in article %}
         <tr>
             <td>
-                <a href="edit/{{ article.id }}">
+                <a href="{{path( "admin_edit_article", { id: article.id})}}">
                     {{ article.title }}
                 </a>
             </td>
             <td>
                 {{ article.author.firstName }}
-
             </td>
             <td style="width: 20%;">
                 {{ article.groupe.groupname }}
             </td>
             <td style="width: 20%;">
-                {{ article.content }}
+                {{ article.content|length > 25 ? article.content|slice(0,25) ~'...' : article.content  }}
             </td>
             <td>
                  {{ article.publishedAt|date('Y-m-d') }}
             </td>
             <td>
-                <a href="{{path( "admin_article_editList", { id: article.id})}}">
+                <a href="{{path( "article_admin_videoListAdd", { articleMatch: article.id})}}">
                     <i class="fa fa-camera" aria-hidden="true"></i>
                 </a>
             </td>
-
             <td>
-                <a href="{{path( "article_admin_uploadList", { articleMatch: article.id})}}">
-
+                <a href="{{path( "article_admin_galleryList", { articleMatch: article.id})}}">
                     <i class="fa fa-th" aria-hidden="true"></i>
-
                 </a>
             </td>
             <td>
-                <a rel="icon" href="{{path( "article_admin_delete_gallery", { id: article.id})}}">
-
+                <a rel="icon" href="{{path( "article_admin_delete", { id: article.id})}}">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                 </a>
             </td>

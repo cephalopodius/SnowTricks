@@ -2439,12 +2439,14 @@ input, select, textarea {
 		padding: 1em 0;
 		text-transform: uppercase;
 		margin-top: calc(-1em + 1px);
+		position: relative;
 	}
 
 		.dropotron.level-0 {
 			font-size: 0.7em;
 			font-weight: 400;
 			margin-top: 1.5em;
+
 		}
 
 			.dropotron.level-0:before {
@@ -2453,7 +2455,7 @@ input, select, textarea {
 				border-right: solid 0.5em transparent;
 				content: '';
 				left: 0.75em;
-				position: absolute;
+
 				top: -0.45em;
 			}
 
@@ -2471,6 +2473,7 @@ input, select, textarea {
 				text-decoration: none;
 				padding: 0 1em;
 				border: 0;
+							z-index: 100;
 			}
 
 			.dropotron > li:hover > a {
@@ -3300,7 +3303,6 @@ input, select, textarea {
 			body.contact #main {
 				padding-bottom: 0;
 			}
-
 		/* CTA */
 
 			#cta {
@@ -3337,6 +3339,15 @@ input, select, textarea {
 				width: 50px;
 				height: 34px;
 			}
+			/* Pagination  */
+			.commentPagination{
+				display:inline-block;
+				text-align: center;
+			}
+			.actualPage{
+				color: red;
+			}
+		
 	/*  COMMENT  */
 
 	}

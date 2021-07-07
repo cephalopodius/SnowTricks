@@ -28,15 +28,14 @@
                         image principale
 
                        {% else %}
-
-                           <form action="/admin/article/gallery/mainPicture/{{ element.id }}/{{ article.id }}">
+                           <form action="{{path( "article_admin_changeMainPicture", { id: element.id , article: article.id})}}">
                                <input type="submit" value="Choisir">
                            </form>
 
                        {% endif %}
                 </td>
                 <td>
-                    <a href="/admin/article/gallery/delete/{{ element.id }}">
+                    <a href="{{path( "article_admin_gallery_delete", { id: element.id})}}">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </a>
                 </td>

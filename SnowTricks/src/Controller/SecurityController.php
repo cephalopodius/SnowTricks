@@ -13,11 +13,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
-
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/login", name="app_login")
+     * @Route("/User/login", name="app_login")
+     * @var User $user
      */
     public function login(AuthenticationUtils $authenticationUtils)
     {
@@ -32,14 +32,15 @@ class SecurityController extends AbstractController
         ]);
     }
     /**
-     * @Route("/logout", name="app_logout")
+     * @Route("/User/logout", name="app_logout")
      */
     public function logout()
     {
         throw new \Exception('Will be intercepted before getting here');
     }
     /**
-     * @Route("/register", name="app_register")
+     * @Route("/User/register", name="app_register")
+     * @var User $user
      */
     public function register(Request $request,EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler,LoginFormAuthentificator $formAuthenticator)
     {
@@ -71,10 +72,8 @@ class SecurityController extends AbstractController
                     } catch (FileException $e) {
                         // ... handle exception if something happens during file upload
                     }
+                $user->setPicture($newFilename);
             }
-
-
-
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

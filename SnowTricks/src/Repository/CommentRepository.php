@@ -5,6 +5,9 @@ namespace App\Repository;
 use App\Entity\Comment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use http\Exception\InvalidArgumentException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 
 /**
  * @method Comment|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,43 +21,26 @@ class CommentRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Comment::class);
     }
-    public function findComment($slug){
-
+    public function findComment($slug,$currentPage)
+    {
         return $this->createQueryBuilder('c')
             ->where('c.article = :article')
             ->setParameter(':article', $slug)
+            ->setFirstResult(($currentPage-1)*10)
+            ->setMaxResults('10')
+            ->orderBy('c.commentDate', 'DESC')
             ->getQuery()
             ->getResult()
             ;
     }
-
-
-    // /**
-    //  * @return Comment[] Returns an array of Comment objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findCountPageNumber($slug)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('COUNT(c.id)')
+            ->where('c.article = :article')
+            ->setParameter(':article', $slug)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getSingleScalarResult()
+            ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Comment
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

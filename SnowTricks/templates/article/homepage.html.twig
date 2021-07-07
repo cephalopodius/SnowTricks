@@ -65,36 +65,42 @@
 
             <div class="row">
 
-                        {% for element in articles%}
+                        {% for element in articles %}
 
                             <div class="col-6 col-12-narrower">
                                 <section>
-                                    <a href="{{path( "article_show", { slug: element.id })}}" class="image featured">
+                                    <a href="{{path( "article_show", { slug: element.slug})}}" class="image featured">
                                         {% for picture in gallery  %}
                                             {%  if  (picture.article.id == element.id and picture.mainPicture == 1) %}
-                                            <img src="images/upload/{{ picture.name }}" alt="" />
+                                            <img src="{{asset('images/upload/'~ picture.name )}}" alt="" />
                                             {% endif %}
                                         {% endfor %}
                                     </a>
+                                    <div class="row">
                                     <header>
-                                        <h3>{{ element.title }}</h3>
+                                        <h3>{{ element.title }}
+                                          {% if is_granted('ROLE_USER') %}
+                                          <a href="{{path( "admin_edit_article", { id: element.id})}}">
+                                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                          </a>
+                                            <a rel="icon" href="{{path( "article_admin_delete", { id: element.id})}}">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </a>
+                                        {%  endif %}
+                                        </h3>
                                     </header>
-                                         <p>{{ element.content }}</p>
+                                  </div>
+                                         <p>{{ element.content|length > 50 ? element.content|slice(0,50) ~'...' : element.content }}</p>
                                 </section>
-
                             </div>
-
-
                 {% endfor %}
-
             </div>
-
+            <!-- pagination comment -->
             <footer class="major">
-                <ul class="buttons">
-                    <li><a href="#" class="button">En voir plus</a></li>
-                </ul>
+              <ul class="buttons">
+                  <li><a href= "{{ path('app_homepage', { articleNumbers: currentArticleNumbers  }) }}" class="button">En voir plus</a></li>
+              </ul>
             </footer>
-
         </section>
 
     </article>
